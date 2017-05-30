@@ -17,7 +17,7 @@ trees = 10
 ## main function
 boosting_para = function(train_data, test_data){ 
   small_train_x = train_data[,c(1:6,8:56)]
-  small_train_x[,c('I4','I5','I6','O1','V4','V6')] = (small_train_x[,c('O1','V4','V6')] - 
+  small_train_x[,c('O1','V4','V6')] = (small_train_x[,c('O1','V4','V6')] - 
                                                         matrix(colMeans(small_train_x[,c('O1','V4','V6')]), 
                                                                nrow = dim(small_train_x[,c('O1','V4','V6')])[1],
                                                                ncol = dim(small_train_x[,c('O1','V4','V6')])[2],
@@ -28,7 +28,7 @@ boosting_para = function(train_data, test_data){
   small_train_y = train_data$inc
   
   small_test_weight = test_data$I2
-  small_test_x = test_data[small_test_weight == 1,c(1:6,8:56)]
+  small_test_x = test_data[,c(1:6,8:56)]
   small_test_x[,c('O1','V4','V6')] = (small_test_x[,c('O1','V4','V6')] - 
                                                        matrix(colMeans(small_test_x[,c('O1','V4','V6')]), 
                                                               nrow = dim(small_test_x[,c('O1','V4','V6')])[1],
@@ -37,7 +37,7 @@ boosting_para = function(train_data, test_data){
                                                                                  nrow = dim(small_test_x[,c('O1','V4','V6')])[1],
                                                                                  ncol = dim(small_test_x[,c('O1','V4','V6')])[2],byrow = T)
   
-  small_test_y =  test_data$inc[small_test_weight == 1]
+  small_test_y =  test_data$inc
   
   trees = 10
   alpha = 0.5
